@@ -16,7 +16,7 @@ def log_extra_args(func):
 
 class Logger(logging.Logger):
     def __init__(self, name: str) -> None:
-        super.__init__(name)
+        super().__init__(name)
         self.setLevel(logging.DEBUG)
         self.propagate = False
 
