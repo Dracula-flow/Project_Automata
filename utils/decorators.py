@@ -6,7 +6,7 @@ def log_extra_args(func):
     """
     @wraps(func)
     def wrapper(self, msg, *args, **kwargs):
-        extra_info = kwargs
+        extra_info = {k: str(v) for k, v in kwargs.items()}
         return func (self, msg, *args, extra = extra_info)
     return wrapper
 

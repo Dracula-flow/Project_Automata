@@ -14,5 +14,5 @@ class TestLogin(BaseTest):
 
     def test_login_success(self):
         self.login_page.login(self.config.USERNAME, self.config.PASSKEY)
-        assert "Swag Labs" in self.login_page.get_title()
+        assert "inventory.html" in self.login_page.get_url
 

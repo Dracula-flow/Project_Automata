@@ -133,12 +133,10 @@ class BasePage:
         
         return by,value
 
-    @log_action(level="info")
     @property
     def get_title(self):
         return self.driver.title
     
-    @log_action(level="info")
     @property
     def get_url(self):
         return self.driver.current_url
