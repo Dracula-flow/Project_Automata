@@ -1,18 +1,7 @@
 import logging
 
-from functools import wraps
-
-
-def log_extra_args(func):
-    """
-    A decorator to handle extra keyword arguments.
-    """
-    @wraps(func)
-    def wrapper(self, msg, *args, **kwargs):
-        extra_info = kwargs
-        return func (self, msg, *args, extra = extra_info)
-    return wrapper
-
+from utils.decorators import log_extra_args
+from utils.timeResponser import time_responser
 
 class Logger(logging.Logger):
     def __init__(self, name: str) -> None:
@@ -63,7 +52,7 @@ class ConsoleHandler(logging.StreamHandler):
 
 class FileHandler(logging.FileHandler):
     def __init__(self):
-        super().__init__("logfile.log", encoding="UTF-8")
+        super().__init__(f"logfile {time_responser("datetime")}.log", encoding="UTF-8")
         formatter = logging.Formatter(
             "%(asctime)s - %(levelname)s - %(message)s - %(extra)s",
             datefmt="%m/%d/%Y %H:%M:%S",

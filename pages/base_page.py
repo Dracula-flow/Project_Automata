@@ -6,7 +6,10 @@ from utils.logger import Logger
 from utils.decorators import log_action
 
 class BasePage:
+    """
+    Foundation for Page objects, home of helper methods.
 
+    """
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
@@ -112,7 +115,6 @@ class BasePage:
     @log_action(level="info")
     def refresh(self):
         self.driver.refresh()
-
 
     def _normalize_locator(self, by, value=None):
         """
