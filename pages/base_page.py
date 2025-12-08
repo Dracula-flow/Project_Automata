@@ -83,7 +83,7 @@ class BasePage:
         """
         Wrapper for driver.wait.until.EC.visibility_of_element_located.
         Supports both:
-            - Individual strings: self.find("id", "textblock")
+            - Individual strings: self.wait_for_visible("id", "textblock")
             - Classic tuple: self.find((By.ID, "textblock"))
          
         """
@@ -141,3 +141,4 @@ class BasePage:
     def get_url(self):
         return self.driver.current_url
     
+
