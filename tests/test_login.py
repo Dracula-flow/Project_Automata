@@ -14,12 +14,36 @@ class TestLogin(BaseTest):
 
     def test_login_success(self):
         self.login_page.login(self.config.USERNAME_VALID, self.config.PASSKEY)
-        assert "inventory.html" in self.login_page.get_url
+        assert "inventory.html" in self.login_page.url
 
     def test_login_wrong_user(self):
         self.login_page.login('mistake', self.config.PASSKEY)
-        error_button = self.login_page.wait_for_present('class_name', 'error-button')
 
-        assert error_button.is_displayed()
+        error_msg = self.login_page.get_error_message()
+
+        expected = "Epic sadface: Username and password do not match any user in this service"
+
+        assert error_msg == expected
+
+    def test_login_wrong_passkey(self):
+        self.login_page.login(self.config.USERNAME_VALID, 'fresno')
+
+        error_msg = self.login_page.get_error_message()
+
+        expected = "Epic sadface: Username and password do not match any user in this service"
+
+        assert error_msg == expected
+    
+    def test_login_locked_out_user(self):
+        self.login_page.login(self.config.USERNAME_LOCKED_OUT, self.config.PASSKEY)
+
+        error_msg = self.login_page.get_error_message()
+    
+        expected = 'Epic sadface: Sorry, this user has been locked out.'
+
+        assert error_msg == expected
+    
+
+    
         
 

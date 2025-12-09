@@ -13,6 +13,10 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from webdriver_manager.chrome import ChromeDriverManager as CDM
 from webdriver_manager.firefox import GeckoDriverManager as GDM
 
+from config.config import Config
+
+from helpers.auth_helper import AuthHelper
+
 
 # CLI option to switch browser
 def pytest_addoption(parser):
@@ -47,3 +51,10 @@ def driver(request):
     request.cls.driver = driver
     yield driver
     driver.quit()
+
+@pytest.fixture
+def auth(driver):
+    """
+    Fixture to add to tests in order to login with the desired credentials
+    """
+    return AuthHelper(driver, Config())

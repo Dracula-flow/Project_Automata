@@ -134,11 +134,17 @@ class BasePage:
         return by,value
 
     @property
-    def get_title(self):
+    def title(self):
+        """
+        Returns title of the page.
+        """
         return self.driver.title
     
     @property
-    def get_url(self):
+    def url(self):
+        """
+        Returns current URL.
+        """
         return self.driver.current_url
     
 

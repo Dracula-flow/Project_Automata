@@ -9,3 +9,10 @@ class LoginPage(BasePage):
         self.type(username, *self.USERNAME_INPUT)
         self.type(password, *self.USERNAME_PASSWORD)
         self.click(*self.LOGIN_BUTTON)
+
+    def get_error_message(self):
+        msg_h3_error = self.wait_for_present('xpath',"//h3[@data-test='error']")
+
+        # Whitespaces and invisibile characters can cause flakiness. 
+        # Use strip() when comparing strings.
+        return msg_h3_error.text.strip()
