@@ -1,0 +1,20 @@
+type : map
+mapping:
+  products:
+    type : seq
+    sequence:
+      - type : map
+        mapping:
+          id:
+            type : int
+            required : true
+          name:
+            type : str
+            required : true
+          price:
+            type : float
+            required : true
+          desc:
+            type : str
+            required : true
+

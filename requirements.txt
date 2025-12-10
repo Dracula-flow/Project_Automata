@@ -5,4 +5,5 @@ pytest-rerunfailures
 webdriver-manager
 python-dotenv
 pyyaml
+pykwalify
 allure-pytest

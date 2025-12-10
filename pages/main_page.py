@@ -1,3 +1,4 @@
+
 from pages.base_page import BasePage
 
 # TODO 1: Define which tests could be performed on the main page
@@ -5,3 +6,4 @@ from pages.base_page import BasePage
 
 class MainPage(BasePage):
     pass
+    

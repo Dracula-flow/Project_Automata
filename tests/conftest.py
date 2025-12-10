@@ -1,6 +1,9 @@
 # Repo file for Pytest's fixtures
 
+from pathlib import Path
 import pytest
+
+from pykwalify.core import Core
 
 from selenium import webdriver
 
@@ -58,3 +61,21 @@ def auth(driver):
     Fixture to add to tests in order to login with the desired credentials
     """
     return AuthHelper(driver, Config())
+
+@pytest.fixture(scope="session", params=[
+    ("data/products.yml", "data/product_schema.yml")
+] )
+def validate_yaml_data(request):
+    """
+    A fixture to validate .yaml files passed to the tests.
+    """
+    yaml_file, schema_file = request.param
+    c= Core (
+        source_file = yaml_file,
+        # must be a list
+        schema_files = [schema_file]
+    )
+
+    c.validate()
+
+    return yaml_file, schema_file # in case it is required
