@@ -62,6 +62,8 @@ def auth(driver):
     """
     return AuthHelper(driver, Config())
 
+    
+
 @pytest.fixture(scope="session", params=[
     ("data/products.yml", "data/product_schema.yml")
 ] )
