@@ -2,7 +2,6 @@ selenium
 pytest
 pytest-xdist
 pytest-rerunfailures
-pytest-bdd
 webdriver-manager
 python-dotenv
 pyyaml
