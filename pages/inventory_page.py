@@ -18,4 +18,6 @@ class InventoryPage(BasePage):
     FILTER = ("class_name", "select_container")
     INVENTORY = ("xpath","//*[@id='inventory_container']")
     
+    def get_title(self):
+        return self.find(*self.TITLE).text.strip()
     

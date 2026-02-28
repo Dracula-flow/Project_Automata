@@ -60,7 +60,7 @@ def auth(driver):
     """
     Fixture to add to tests in order to login with the desired credentials
     """
-    return AuthHelper(driver, Config())
+    return AuthHelper(Config(),driver)
 
     
 
