@@ -1,4 +1,6 @@
 import logging
+import os
+from pathlib import Path
 
 from utils.timeResponser import time_responser
 
@@ -46,7 +48,15 @@ class ConsoleHandler(logging.StreamHandler):
 
 class FileHandler(logging.FileHandler):
     def __init__(self):
-        super().__init__(f"logfile {time_responser("datetime")}.log", encoding="UTF-8")
+
+        log_dir = "logs"
+        os.makedirs(log_dir, exist_ok=True)  # Create folder if it doesn't exist
+
+        filename = f"logfile_{time_responser('datetime')}.log"
+        filepath = Path(log_dir, filename)
+
+        super().__init__(filepath, encoding="UTF-8")
+        
         formatter = logging.Formatter(
             "%(asctime)s - %(levelname)s - %(message)s",
             datefmt="%m/%d/%Y %H:%M:%S",
