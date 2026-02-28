@@ -21,3 +21,14 @@ class InventoryPage(BasePage):
     def get_title(self):
         return self.find(*self.TITLE).text.strip()
     
+    def get_hamburger(self):
+        return self.find(*self.HAMBURGER)
+    
+    def open_hamburger(self):
+        self.click(*self.HAMBURGER)
+    
+    def go_to_cart(self):
+        self.click(*self.CART)
+
+    
+    

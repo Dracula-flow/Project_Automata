@@ -20,3 +20,9 @@ class TestInventory(BaseTest):
 
         assert title == expected
         
+    def test_cart(self):
+        self.inventory_page.go_to_cart()
+
+        assert "cart.html" in self.inventory_page.url
+
+        
