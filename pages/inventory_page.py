@@ -2,19 +2,26 @@ from enum import Enum
 
 from pages.base_page import BasePage
 
-# TODO 1: Define which tests could be performed on the main page
-# TODO 2: Define what helper methods could be needed in the main page for the tests
+from selenium.common.exceptions import NoSuchElementException
 
 class HamburgerOptions(Enum):
     ALL_ITEMS = ("id","inventory_sidebar_link")
     ABOUT = ("id","about_sidebar_link")
     LOGOUT = ("id","logout_sidebar_link")
     RESET_APP_STATE = ("id","reset_sidebar_link")
+    SIDE_MENU_CROSS_BTN = ("id","react-burger-cross-btn")
+
+class FilterOptions(Enum):
+    NAME_A_TO_Z = ("xpath","//option[@value='az']")
+    NAME_Z_TO_A = ("xpath","//option[@value='za']")
+    PRICE_LOW_TO_HIGH = ("xpath","//option[@value='lohi']")
+    PRICE_HIGH_TO_LOW = ("xpath","//option[@value='hilo']")
 
 class InventoryPage(BasePage):
     TITLE = ("class_name","app_logo")
 
     HAMBURGER = ("id","react-burger-menu-btn")
+    SIDE_MENU = ("class_name","bm-menu")
 
     CART = ("id","shopping_cart_container")
     CART_BADGE = ("class_name","shopping_cart_badge")
@@ -29,11 +36,21 @@ class InventoryPage(BasePage):
         return self.find(*self.HAMBURGER)
     
     def open_hamburger(self):
-        self.wait_for_visible(*self.HAMBURGER)
-        self.click(*self.HAMBURGER)
+        self.wait_for_clickable(*self.HAMBURGER)
+        try:
+            self.click(*self.HAMBURGER)
+        except Exception:
+            pass # If the click fails, it's likely because the hamburger is already open
+        
+    def is_side_menu_displayed(self):
+        try:
+            return self.find(*self.SIDE_MENU).is_enabled()
+        except NoSuchElementException:
+            return False
 
     def click_hamburger_option(self, option: HamburgerOptions):
         self.open_hamburger()
+        self.wait_for_present(*option.value)
         self.click(*option.value)
         
     def get_hamburger_option(self, option: HamburgerOptions):
@@ -51,3 +68,16 @@ class InventoryPage(BasePage):
     
     def add_backpack_to_cart(self):
         self.click("id", "add-to-cart-sauce-labs-backpack")
+
+    def get_filter(self):
+        return self.find(*self.FILTER)
+    
+    def click_filter(self):
+        self.click(*self.FILTER)
+
+    def get_filter_option(self, option: FilterOptions):
+        self.click_filter()
+        return self.find(*option.value)
+
+    def click_filter_option(self, option: FilterOptions):
+        self.click(*option.value)
